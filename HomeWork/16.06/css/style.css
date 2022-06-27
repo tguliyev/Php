@@ -1,0 +1,32 @@
+* { box-sizing: border-box }
+body { margin: 0; background-color: #AAA }
+.container { max-width: 1000px; margin: auto }
+.wrapper { display: flex; flex-direction: column; min-height: 70vh; }
+#lang { text-align: center;}
+
+header { padding: 20px; background: orange }
+nav { flex: 1 1 20%; background: yellow }
+main { flex: 1 1 80%; background: #FFF; padding: 10px 20px }
+aside { display: none; }
+footer { padding: 10px; background: red; text-align: center; font: .7em Arial; color: #fff; }
+
+h1 { font: bold 1.8em Arial; color: #FFF; text-transform: uppercase;
+    text-align: center; text-shadow: 1px 1px 5px #333;}
+h2 { font: 1.2em Arial; color: #666; text-transform: capitalize;}
+main img {  width: 100%; }
+main p { font: .9em/1.5 Arial; color: #333; text-align: justify; text-indent: 2em;}
+nav ul { list-style: none; padding: 0; text-align: center; }
+nav ul li { display: inline-block }
+nav ul li a { text-decoration: none; font: 1em Arial; color: #fff; 
+    background: orange; display: inline-block; padding: 5px 15px; margin: 5px;}
+
+
+@media only screen and (min-width: 768px) {
+    .wrapper {flex-direction: row;}
+    aside { display: inherit; flex: 1 0 160px; background: #333 }
+    main img { max-width: 300px; float: left; margin: 0 20px 10px 0}
+    nav ul li {  width: 100% }
+    nav ul li a {  width: 100%; margin: 5px 0 }
+    .photo { display: flex;}
+    .thumbs { flex: 1 1 150px; margin: 5px}
+}
