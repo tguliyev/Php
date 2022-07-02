@@ -1,0 +1,6 @@
+body { max-width: 1128px; margin: auto;}
+header > img { width: 41px; height: 41px;}
+nav { display: flex; align-items: center; justify-content: space-between; }
+ul { display: flex; list-style: none;}
+li { margin-left: 15px;}
+p { padding: 0; margin: 0;}
