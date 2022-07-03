@@ -17,15 +17,14 @@
                 $sql = "SELECT * FROM `meny` ORDER BY `order`";
                 $result = mysqli_query($conn, $sql);
                 while ($row = mysqli_fetch_assoc($result)) {
-                    echo '<li>'
-                            .($row['icon'] ? ('<img src="assets/'.$row['icon'].'" alt="'.pathinfo($row['icon'], PATHINFO_FILENAME).'">') : '')
-                            .'<p>'.$row['name'].'</p>'.
-                         '</li>';
-                }
             ?>
+                <li>
+                    <a href="<?=(is_dir(str_replace(' ', '',  $row['name'])) ? "http://".$_SERVER['HTTP_HOST']."/".str_replace(' ', '',  $row['name']) : '')?>">
+                        <?=($row['icon'] ? ('<img src="assets/'.$row['icon'].'" alt="'.pathinfo($row['icon'], PATHINFO_FILENAME).'">') : '')?>
+                        <p><?=ucwords($row['name'])?></p>
+                    </a>
+                </li>
+            <?php }?>
             </ul>
         </nav>
     </header>
-
-</body>
-</html>
