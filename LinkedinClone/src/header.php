@@ -15,8 +15,8 @@
             <ul>
             <?php
                 $sql = "SELECT * FROM `meny` ORDER BY `order`";
-                $result = mysqli_query($conn, $sql);
-                while ($row = mysqli_fetch_assoc($result)) {
+                $result = $conn->query($sql);
+                while ($row = $result->fetch_assoc()) {
             ?>
                 <li>
                     <a href="<?=(is_dir(str_replace(' ', '',  $row['name'])) ? "http://".$_SERVER['HTTP_HOST']."/".str_replace(' ', '',  $row['name']) : '')?>">

@@ -1,7 +1,6 @@
 <?php
-    $host = "localhost";
-    $db = "linkedin";
-    // print_r(getenv());
-    // echo getenv('JAVA_HOME');
-    $conn = mysqli_connect($host, $_ENV['db_user'], $_ENV['db_pass'], $db);
+    $db_host = "localhost";
+    $db_name = "linkedin";
+
+    $conn = new mysqli($db_host, $_ENV['db_user'], $_ENV['db_pass'], $db_name);
 ?>
