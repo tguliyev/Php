@@ -1,6 +1,3 @@
 <?php
-    $db_host = "localhost";
-    $db_name = "linkedin";
-
-    $conn = new mysqli($db_host, $_ENV['db_user'], $_ENV['db_pass'], $db_name);
+    $conn = new mysqli($_ENV['db_host'], $_ENV['db_user'], $_ENV['db_pass'], $_ENV['db_name']);
 ?>
