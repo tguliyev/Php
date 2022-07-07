@@ -21,10 +21,10 @@
         <nav>
             <ul>    
                 <?php
-                $sql = "SELECT * FROM `menu`";
+                $sql = "SELECT * FROM `category`";
                 $result = $conn->query($sql);
                 while ($row = $result->fetch_assoc()) {
-                    echo '<li><a href="/'.strtolower($row['name']).'">'.$row['name'].'</a></li>';   
+                    echo '<li><a href="?mid='.$row['id'].'">'.$row['name'].'</a></li>';   
                 }
                 ?>
             </ul>
