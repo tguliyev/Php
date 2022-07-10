@@ -11,4 +11,12 @@ function checkParams($value) {
     $value = htmlspecialchars($value);
     return $value;
 }
+
+function scrapeContent($url) {
+    $html = file_get_contents($url);
+    $dom = new DOMDocument();
+    $dom->loadHTML($html);
+    return $dom;
+}
 ?>
+
