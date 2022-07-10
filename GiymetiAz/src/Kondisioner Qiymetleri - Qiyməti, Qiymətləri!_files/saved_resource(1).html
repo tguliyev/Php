@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!-- saved from url=(0096)https://qiymeti.net/wp-content/themes/qiymeti-theme/ads/kontakt/auto/160x600.html?iframe=1&v=1.0 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><!--<base target="_top">--><base href="." target="_top"></head>
+<body border="0" margin="0" style="margin: 0; padding: 0" onload="init();">
+
+<!--
+	NOTES:
+	1. All tokens are represented by '$' sign in the template.
+	2. You can write your code only wherever mentioned.
+	3. All occurrences of existing tokens will be replaced by their appropriate values.
+	4. Blank lines will be removed automatically.
+	5. Remove unnecessary comments before creating your template.
+-->
+
+
+
+<meta name="authoring-tool" content="Adobe_Animate_CC">
+<title>160x600</title>
+<!-- write your code here -->
+<script src="./createjs-2015.11.26.min.js(1).download"></script>
+<script src="./160x600.js(1).download"></script>
+<script>
+var canvas, stage, exportRoot, anim_container, dom_overlay_container, fnStartAnimation;
+function init() {
+	canvas = document.getElementById("canvas");
+	anim_container = document.getElementById("animation_container");
+	dom_overlay_container = document.getElementById("dom_overlay_container");
+	var comp=AdobeAn.getComposition("04FD4B3EC1344957BE0C5C4CC25F0504");
+	var lib=comp.getLibrary();
+	var loader = new createjs.LoadQueue(false);
+	loader.addEventListener("fileload", function(evt){handleFileLoad(evt,comp)});
+	loader.addEventListener("complete", function(evt){handleComplete(evt,comp)});
+	var lib=comp.getLibrary();
+	loader.loadManifest(lib.properties.manifest);
+
+				setTimeout(function(){
+					var zoneid=frameElement.parentNode.getAttribute('data-revive-zoneid');
+					var href="https://ads2.imv.az/www/delivery/ck.php?oaparams=2__bannerid=75256__zoneid="+zoneid+"__cb=0b4144bce4__oadest="+encodeURIComponent("http://k-h.az/0zbssW");
+					var a=document.getElementsByTagName('a')[0];
+					a.setAttribute('href', href);
+					a.setAttribute('target', '_blank');
+					if(frameElement && frameElement.parentElement && frameElement.parentElement.getAttribute('data-revive-tracking')){
+						a.onclick=function(){
+							var img=document.createElement('IMG');
+							img.src=frameElement.parentElement.getAttribute('data-revive-tracking');
+						}
+					}
+				}, 300);
+			
+
+
+			setTimeout(function(){
+			var p=frameElement.parentElement.parentElement;
+			while(p.style.display=='inline'){
+				p=p.parentNode;
+			}
+			var zz=function(){
+				var r=p.getBoundingClientRect();
+				frameElement.style.width=r.width+'px';
+				frameElement.style.height = 600/160*r.width + 'px'; 
+			}
+			zz();
+			new ResizeObserver(zz).observe(p);
+		}, 300);
+		
+
+}
+function handleFileLoad(evt, comp) {
+	var images=comp.getImages();	
+	if (evt && (evt.item.type == "image")) { images[evt.item.id] = evt.result; }	
+}
+function handleComplete(evt,comp) {
+	//This function is always called, irrespective of the content. You can use the variable "stage" after it is created in token create_stage.
+	var lib=comp.getLibrary();
+	var ss=comp.getSpriteSheet();
+	var queue = evt.target;
+	var ssMetadata = lib.ssMetadata;
+	for(i=0; i<ssMetadata.length; i++) {
+		ss[ssMetadata[i].name] = new createjs.SpriteSheet( {"images": [queue.getResult(ssMetadata[i].name)], "frames": ssMetadata[i].frames} )
+	}
+	exportRoot = new lib._160x600();
+	stage = new lib.Stage(canvas);	
+	//Registers the "tick" event listener.
+	fnStartAnimation = function() {
+		stage.addChild(exportRoot);
+		createjs.Ticker.setFPS(lib.properties.fps);
+		createjs.Ticker.addEventListener("tick", stage);
+	}	    
+	//Code to support hidpi screens and responsive scaling.
+	AdobeAn.makeResponsive(false,'both',false,1,[canvas,anim_container,dom_overlay_container]);	
+	AdobeAn.compositionLoaded(lib.properties.id);
+	fnStartAnimation();
+}
+</script>
+<!-- write your code here -->
+
+
+	<div id="animation_container" style="background-color: rgb(255, 255, 255); width: 100%; height: auto;">
+		<a href="https://ads2.imv.az/www/delivery/ck.php?oaparams=2__bannerid=75256__zoneid=98__cb=0b4144bce4__oadest=http%3A%2F%2Fk-h.az%2F0zbssW" target="_blank"><canvas id="canvas" width="160" height="600" style="position: absolute; display: block; background-color: rgb(255, 255, 255); width: 100%; height: auto;"></canvas></a>
+		<div id="dom_overlay_container" style="pointer-events: none; overflow: hidden; width: 100%; height: auto; position: absolute; left: 0px; top: 0px; display: block;">
+		</div>
+	</div>
+
+<img style="width:0px;height:0px;display:none" src="./lg(1).php"> <!-- -->
+
+
+</body></html>

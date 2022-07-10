@@ -11,10 +11,10 @@
         $page->navigate('https://kontakt.az/telefonlar/mobil-telefonlar/')->waitForNavigation();
 
         
-        // for ($i=0; $i < 1; $i++) { 
-        //     $page->evaluate('document.getElementsByClassName("styles_loadMore__9YIfJ styles_paletteLoadMore__4CXTH")[0].click()')->getReturnValue();
-        //     sleep(5);
-        // }
+        for ($i=0; $i < 1; $i++) { 
+            $page->evaluate('document.getElementsByClassName("styles_loadMore__9YIfJ styles_paletteLoadMore__4CXTH")[0].click()')->getReturnValue();
+            sleep(5);
+        }
         // echo $page->getHtml();
 
         $dom = new DOMDocument();
@@ -27,12 +27,12 @@
         print_r($items);
 
         echo '<br>';
-        echo $items->item(0)->childNodes->item(0)->childNodes->item(0)->childNodes->item(0)->nodeValue;
+        // echo $items->item(0)->childNodes->item(0)->childNodes->item(0)->childNodes->item(0)->nodeValue;
         
-        // foreach ($items as $item) {
-        //     echo $item->nodeValue;
-        //     echo '<br>';
-        // }
+        foreach ($items as $item) {
+            echo $item->nodeValue;
+            echo '<br>';
+        }
 
     } catch (Exception $e) {
         echo $e;

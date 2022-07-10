@@ -6,6 +6,6 @@
     getParams();
 
     require "header.php";
-    require "main.php";
+    require "main1.php";
     // require "footer.php";
 ?>
