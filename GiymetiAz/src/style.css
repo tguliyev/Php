@@ -492,7 +492,7 @@ a:hover {
     width: 161px;
     border-radius: 10px;
     margin: 11px 41px;
-    display: inline-table
+    display: inline-table;
 }
 
 .products .product .thumbnail {
@@ -2446,4 +2446,8 @@ h1.qiymetleri-heading {
     cursor: pointer;
     background: #de1b1b;
     color: #fff
+}
+
+.products {
+    display: inline-table;
 }

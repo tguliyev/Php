@@ -604,7 +604,7 @@
                         while ($row = $result->fetch_assoc()) {
                         ?>
                             <li id="menu-1">
-                                <a href="?mid=<?=$row['id']?>">
+                                <a href="?menu=<?=$row['id']?>">
                                     <span class="icon"></span>
                                     <div class="text"><?=$row['name']?></div>
                                 </a>
