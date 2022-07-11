@@ -1,4 +1,5 @@
 <?php
+    require_once "db.php";
     require __DIR__.'/vendor/autoload.php';
     use HeadlessChromium\BrowserFactory;
     
@@ -6,31 +7,36 @@
     $browser = $browserFactory->createBrowser();
 
     try {
-        // creates a new page and navigate to an URL
         $page = $browser->createPage();
-        $page->navigate('https://kontakt.az/telefonlar/mobil-telefonlar/')->waitForNavigation();
+        $page->navigate('https://qiymeti.net/qiymetleri/telefon/')->waitForNavigation();
+        
 
         
-        for ($i=0; $i < 1; $i++) { 
-            $page->evaluate('document.getElementsByClassName("styles_loadMore__9YIfJ styles_paletteLoadMore__4CXTH")[0].click()')->getReturnValue();
-            sleep(5);
-        }
+        // for ($i=0; $i < 10; $i++) { 
+        //     $page->evaluate('document.getElementsByClassName("styles_loadMore__9YIfJ styles_paletteLoadMore__4CXTH")[0].click()')->getReturnValue();
+        //     sleep(5);
+        // }
         // echo $page->getHtml();
 
         $dom = new DOMDocument();
         @$dom->loadHTML($page->getHtml());
         
         $finder = new DOMXPath($dom);
-        $query = '//div[contains(@class,"styles_baseInfo__PLU_Z")]';
-        $items = $finder->query($query);
-        
-        print_r($items);
+        $names = $finder->query('//div[contains(@class,"name")]/a');
+        $prices = $finder->query('//div[contains(@class,"min-price")]/span');
+        $images = $finder->query('//img[contains(@class,"wp-post-image")]');
+        $item_links = $finder->query('//div[contains(@class, "thumbnail")]');
 
-        echo '<br>';
-        // echo $items->item(0)->childNodes->item(0)->childNodes->item(0)->childNodes->item(0)->nodeValue;
-        
-        foreach ($items as $item) {
-            echo $item->nodeValue;
+        for ($i=0; $i < count($names); $i++) {
+            echo $names[$i]->nodeValue;
+            echo '<br>';
+            echo $prices[$i]->nodeValue;
+            echo '<br>';
+            echo $images[$i]->attributes->getNamedItem('src')->nodeValue;
+            echo '<br>';
+            echo $item_links[$i]->childNodes[0]->attributes->getNamedItem('href')->nodeValue;
+            echo '<br>';
+            echo '<br>';
             echo '<br>';
         }
 

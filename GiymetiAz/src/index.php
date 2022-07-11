@@ -6,6 +6,9 @@
     getParams();
 
     require "header.php";
-    require "main.php";
+    
+    if (isset($item) && $item) require "item.php";
+    else require "main.php";
+
     require "footer.php";
 ?>

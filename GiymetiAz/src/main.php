@@ -12,25 +12,25 @@
             <div id="archive">
                 <div class="products">
                     <?php
-                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image` FROM `item`, `menumake` WHERE `menumake`.`menu`=$menu AND `menumake`.`id`=`item`.`menumake`;";
+                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `menumake` WHERE `menumake`.`menu`=$menu " . (isset($make) ? "AND `menumake`.`make`=$make" : "" ). " AND `menumake`.`id`=`item`.`menumake`;";
                         $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
                     ?>
                     <div class="product">
                         <div class="thumbnail">
-                            <a href="#">
+                            <a href="?item=<?=$row['id']?>">
                                 <img width="150" height="150" src="assets/<?=$row['image']?>" class="wp-post-image" alt="<?=basename($row['image'])?>">
                             </a>
                         </div>
                         <div class="name">
-                            <a href="#"><?=$row['name']?></a>
+                            <a href="?item=<?=$row['id']?>"><?=$row['name']?></a>
                         </div>
                         <div class="min-price">
-                            <span>0
+                            <span><?=$row['best_price']?>
                                 <span class="fraction">,00</span>
                             </span> AZN
                         </div>
-                        <div class="specifications">description</div>
+                        <!-- <div class="specifications">description</div> -->
                     </div>
 
                     <?php

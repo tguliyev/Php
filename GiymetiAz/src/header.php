@@ -572,7 +572,7 @@
                     <div id="logo">
                         <a href="https://qiymeti.net/" title="Qiyməti, Qiymətləri!">
                             <img alt="Qiymeti" width="188" height="40"
-                                src="./Kondisioner Qiymetleri - Qiyməti, Qiymətləri!_files/qiymeti-logo.png">
+                                src="assets/qiymeti-logo.png">
                         </a>
                     </div>
                     <div id="header-search" class="search">
