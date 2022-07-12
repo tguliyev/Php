@@ -31,6 +31,7 @@
             addMake($dom, $page, $conn, $menu_link, $menu_id, $i);
 
 
+            $item_data = [];
             // Get Items Info
             for ($j=0; $j < $item_pages; $j++) {
                 
@@ -40,8 +41,10 @@
                 echo $item_page_link;
                 $item = $item[0]->childNodes;
 
-                for ($k=0; $k < count($item) - 1; $k++) { 
+                for ($k=0; $k < count($item) - 1; $k++) {
+                    $row = [];
                     echo "<br>";
+                    $row['link'] = $item[$k]->childNodes[0]->childNodes[0]->attributes->getNamedItem('href')->nodeValue;
                     $item_link = $item[$k]->childNodes[0]->childNodes[0]->attributes->getNamedItem('href')->nodeValue;
                     // echo $item_link;
                     $item_price_page = scrapeContent($dom, $page, $item_link, '//div[@class="prices-wrapper"]');
@@ -52,7 +55,11 @@
 
                     $price_list = $item_price_page[6]->childNodes;
                     for ($p=1; $p < count($price_list); $p++) { 
-                        
+                        $shop_price = $price_list[$p]->attributes->getNamedItem('data_price')->nodeValue;
+                        $shop_price_link = $price_list[$p]->attributes->getNamedItem('href')->nodeValue;
+                        $shop_price_title = $price_list[$p]->attributes->getNamedItem('title')->nodeValue;
+
+                        loadImage($price_list[$p]->firstChild->firstChild->attributes->getNamedItem('src')->nodeValue);
                     }
                     
                     
@@ -114,6 +121,11 @@
             $sql .= ($j == count($make) - 1) ?  "" : ",";
         }
         $conn->query($sql);
+    }
+
+    function loadImage($url) {
+        $path = "assets/";
+        file_put_contents($path.basename(strtok($url, "?")), file_get_contents($url));
     }
 
 ?>
