@@ -4,7 +4,7 @@
     require __DIR__.'/vendor/autoload.php';
     use HeadlessChromium\BrowserFactory;
 
-    $item_pages = 5;
+    $item_pages = 1;
     
     $browserFactory = new BrowserFactory();
     $browser = $browserFactory->createBrowser();
@@ -17,72 +17,48 @@
         // Get target menu links
         $menu_link = getMenuLink($dom, $page);
 
-        for ($i=0; $i < count($menu_id) ; $i++) { 
+        $item_data = [];
+        // for ($i=0; $i < count($menu_id) ; $i++) { 
+        for ($i=0; $i < 1 ; $i++) { 
 
-            // Get and Add all Makes
-            // $make = scrapeContent($dom, $page, $menu_link[$i], '//li[contains(@class,"filter brands")]/div[contains(@class, "filter-content")]/div/label/a');
-            // $sql = "INSERT IGNORE INTO `make` (`name`, `menu`) VALUES ";
-            // for ($j=0; $j < count($make); $j++) {
-            //     if ($make[$j]->nodeValue == "iPhone" || $make[$j]->nodeValue == "iPad") $make[$j]->nodeValue = "Apple";
-            //     $sql .= "('".addslashes($make[$j]->nodeValue)."',".$menu_id[$i].") ";
-            //     $sql .= ($j == count($make) - 1) ?  "" : ",";
-            // }
-            // $conn->query($sql);
-            addMake($dom, $page, $conn, $menu_link, $menu_id, $i);
+            // Add all Makes
+            // addMake($dom, $page, $conn, $menu_link, $menu_id, $i);
 
 
-            $item_data = [];
             // Get Items Info
             for ($j=0; $j < $item_pages; $j++) {
                 
                 $item_page_link = $menu_link[$i] . "page/".($j + 1);
                 
                 $item = scrapeContent($dom, $page, $item_page_link, '//div[@class="products"]');
-                echo $item_page_link;
+
+                // echo $item_page_link;
                 $item = $item[0]->childNodes;
 
                 for ($k=0; $k < count($item) - 1; $k++) {
                     $row = [];
-                    echo "<br>";
+
                     $row['link'] = $item[$k]->childNodes[0]->childNodes[0]->attributes->getNamedItem('href')->nodeValue;
-                    $item_link = $item[$k]->childNodes[0]->childNodes[0]->attributes->getNamedItem('href')->nodeValue;
-                    // echo $item_link;
-                    $item_price_page = scrapeContent($dom, $page, $item_link, '//div[@class="prices-wrapper"]');
-                    $item_price_page = $item_price_page[0]->childNodes;
-                    
-                    // description
-                    $item_desc = $item_price_page[1]->nodeValue;
 
-                    $price_list = $item_price_page[6]->childNodes;
-                    for ($p=1; $p < count($price_list); $p++) { 
-                        $shop_price = $price_list[$p]->attributes->getNamedItem('data_price')->nodeValue;
-                        $shop_price_link = $price_list[$p]->attributes->getNamedItem('href')->nodeValue;
-                        $shop_price_title = $price_list[$p]->attributes->getNamedItem('title')->nodeValue;
+                    $row['name'] = $item[$k]->childNodes[1]->childNodes[0]->nodeValue;
 
-                        loadImage($price_list[$p]->firstChild->firstChild->attributes->getNamedItem('src')->nodeValue);
-                    }
-                    
-                    
-                    
-                    echo "<br>";
-                    $item_image = $item[$k]->childNodes[0]->childNodes[0]->childNodes[0]->attributes->getNamedItem('src')->nodeValue;
-                    echo $item_image;
-
-                    echo "<br>";
-                    $item_name = $item[$k]->childNodes[1]->childNodes[0]->nodeValue;
-                    echo $item_name;
-
-                    echo "<br>";
                     if ($item[$k]->childNodes[2]->attributes->getNamedItem('class')->nodeValue == 'min-price') {
-                        echo intval(str_replace(' ', '', $item[$k]->childNodes[2]->childNodes[0]->nodeValue));
+                        $row['min-price'] = intval(str_replace(' ', '', $item[$k]->childNodes[2]->childNodes[0]->nodeValue));
                     }
-                    echo "<br>";
-                    echo "<br>";
-                    echo "<br>";
+
+                    $img_src = scrapeContent($dom, $page, $row['link'], '//img[@class="attachment-medium size-medium wp-post-image"]');
+                    $row['img'] = loadImage($img_src[0]->attributes->getNamedItem('src')->nodeValue);
+
+                    $info = scrapeContent($dom, $page, $row['link'], '//div[@class="prices-wrapper"]');
+                    $row['desc'] = $info[0]->childNodes[2]->nodeValue;
+
+
+                    $item_data[] = $row;
+                    print_r($row);
                 }
+
             }
         }
-
 
 
     } catch (Exception $e) {
@@ -125,7 +101,11 @@
 
     function loadImage($url) {
         $path = "assets/";
-        file_put_contents($path.basename(strtok($url, "?")), file_get_contents($url));
+        $img = basename(strtok($url, "?"));
+        if (!file_exists($path.$img)) {
+            file_put_contents($path.$img, file_get_contents($url));
+        }
+        return $img;
     }
 
 ?>

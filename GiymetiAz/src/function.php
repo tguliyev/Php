@@ -14,8 +14,8 @@ function checkParams($value) {
 
 function scrapeContent($dom, $page, $url, $query) {
     $page->navigate($url)->waitForNavigation();
-
-    @$dom->loadHTML($page->getHtml(20000));
+    
+    @$dom->loadHTML($page->getHtml(30000));
     $finder = new DOMXPath($dom);
     return $finder->query($query);
 }
