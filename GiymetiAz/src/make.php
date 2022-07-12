@@ -10,19 +10,20 @@
     $browser = $browserFactory->createBrowser();
     $page = $browser->createPage();
     $dom = new DOMDocument();
+    $finder = null;
 
     try {
         // Get menu ids
         $menu_id = getMenuId($conn);
         // Get target menu links
-        $menu_link = getMenuLink($dom, $page);
+        $menu_link = getMenuLink($dom, $page, $finder);
 
         $item_data = [];
         // for ($i=0; $i < count($menu_id) ; $i++) { 
         for ($i=0; $i < 1 ; $i++) { 
 
             // Add all Makes
-            // addMake($dom, $page, $conn, $menu_link, $menu_id, $i);
+            // addMake($dom, $page, $finder, $conn, $menu_link, $menu_id, $i);
 
 
             // Get Items Info
@@ -30,7 +31,7 @@
                 
                 $item_page_link = $menu_link[$i] . "page/".($j + 1);
                 
-                $item = scrapeContent($dom, $page, $item_page_link, '//div[@class="products"]');
+                $item = scrapeContent($dom, $page, $finder, $item_page_link, '//div[@class="products"]');
 
                 // echo $item_page_link;
                 $item = $item[0]->childNodes;
@@ -46,11 +47,27 @@
                         $row['min-price'] = intval(str_replace(' ', '', $item[$k]->childNodes[2]->childNodes[0]->nodeValue));
                     }
 
-                    $img_src = scrapeContent($dom, $page, $row['link'], '//img[@class="attachment-medium size-medium wp-post-image"]');
-                    $row['img'] = loadImage($img_src[0]->attributes->getNamedItem('src')->nodeValue);
+                    $info = scrapeContent($dom, $page, $finder, $row['link'], '//*[@class="content"]');
+                    $row['img'] = loadImage($info[0]->childNodes[1]->childNodes[1]->attributes->getNamedItem('src')->nodeValue);
 
-                    $info = scrapeContent($dom, $page, $row['link'], '//div[@class="prices-wrapper"]');
-                    $row['desc'] = $info[0]->childNodes[2]->nodeValue;
+                    $row['desc'] = $info[0]->childNodes[3]->childNodes[3]->nodeValue;;
+
+                    $row['price_list'] = [];
+                    $price_count = count($info[0]->childNodes[3]->childNodes[12]->childNodes) - 1;
+                    for ($h=1; $h < $price_count; $h++) { 
+                
+                        $shop_row = [];
+                        $shop_row['shop_link'] = $info[0]->childNodes[3]->childNodes[12]->childNodes[$h]->attributes->getNamedItem('href')->nodeValue;
+                
+                        $shop_row['shop_price'] = intval($info[0]->childNodes[3]->childNodes[12]->childNodes[$h]->attributes->getNamedItem('data-price')->nodeValue);
+                
+                        $shop_row['shop_name'] = $info[0]->childNodes[3]->childNodes[12]->childNodes[$h]->attributes->getNamedItem('data-company')->nodeValue;
+                
+                        $shop_row['shop_logo'] = loadImage("https://qiymeti.net/wp-content/themes/qiymeti-theme/images/companies/".$shop_row['shop_name'].".png");
+                
+                        $shop_row['shop_title'] = $info[0]->childNodes[3]->childNodes[12]->childNodes[$h]->childNodes[1]->childNodes[0]->childNodes[0]->nodeValue;
+                        $row['price_list'][] = $shop_row;
+                    }
 
 
                     $item_data[] = $row;
@@ -79,8 +96,8 @@
         return $menu_id;
     }
 
-    function getMenuLink($dom, $page) {
-        $link = scrapeContent($dom, $page, 'https://qiymeti.net', '//nav[contains(@class,"menu")]/ul/li/a');
+    function getMenuLink($dom, $page, $finder) {
+        $link = scrapeContent($dom, $page, $finder, 'https://qiymeti.net', '//nav[contains(@class,"menu")]/ul/li/a');
         $menu_link = [];
         for ($i=0; $i < count($link); $i++) { 
             $menu_link[] = $link[$i]->attributes->getNamedItem('href')->nodeValue;
@@ -88,8 +105,8 @@
         return $menu_link;
     }
 
-    function addMake($dom, $page, $conn, $menu_link, $menu_id, $index) {
-        $make = scrapeContent($dom, $page, $menu_link[$index], '//li[contains(@class,"filter brands")]/div[contains(@class, "filter-content")]/div/label/a');
+    function addMake($dom, $page, $finder, $conn, $menu_link, $menu_id, $index) {
+        $make = scrapeContent($dom, $page, $finder, $menu_link[$index], '//li[contains(@class,"filter brands")]/div[contains(@class, "filter-content")]/div/label/a');
         $sql = "INSERT IGNORE INTO `make` (`name`, `menu`) VALUES ";
         for ($j=0; $j < count($make); $j++) {
             if ($make[$j]->nodeValue == "iPhone" || $make[$j]->nodeValue == "iPad") $make[$j]->nodeValue = "Apple";

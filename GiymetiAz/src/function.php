@@ -12,7 +12,7 @@ function checkParams($value) {
     return $value;
 }
 
-function scrapeContent($dom, $page, $url, $query) {
+function scrapeContent($dom, $page, $finder, $url, $query) {
     $page->navigate($url)->waitForNavigation();
     
     @$dom->loadHTML($page->getHtml(30000));
