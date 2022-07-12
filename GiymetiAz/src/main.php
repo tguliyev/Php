@@ -12,9 +12,9 @@
             <div id="archive">
                 <div class="products">
                     <?php
-                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `menumake` WHERE `menumake`.`menu`=$menu " . (isset($make) ? "AND `menumake`.`make`=$make" : "" ). " AND `menumake`.`id`=`item`.`menumake`;";
-                        $result = $conn->query($sql);
-                        while ($row = $result->fetch_assoc()) {
+                        // $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `menumake` WHERE `menumake`.`menu`=$menu " . (isset($make) ? "AND `menumake`.`make`=$make" : "" ). " AND `menumake`.`id`=`item`.`menumake`;";
+                        // $result = $conn->query($sql);
+                        // while ($row = $result->fetch_assoc()) {
                     ?>
                     <div class="product">
                         <div class="thumbnail">
@@ -34,7 +34,7 @@
                     </div>
 
                     <?php
-                        }
+                        // }
                     ?>
                     <!-- <div class="pagination"><span aria-current="page" class="page-numbers current">1</span>
                         <a class="page-numbers" href="#">2</a>
@@ -55,7 +55,7 @@
                         <div class="filter-search"><input type="text" placeholder="Marka axtar"></div>
                         <div class="filter-content">
                         <?php
-                            $sql = "SELECT `make`.`id`, `make`.`name` FROM `make`, `menumake` WHERE `menumake`.`menu`=$menu AND `menumake`.`make`=`make`.`id`;";
+                            $sql = "SELECT * FROM `make` WHERE `menu`=$menu;";
                             $result = $conn->query($sql);
                             while ($row = $result->fetch_assoc()) {
                         ?>

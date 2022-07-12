@@ -12,11 +12,12 @@ function checkParams($value) {
     return $value;
 }
 
-function scrapeContent($url) {
-    $html = file_get_contents($url);
-    $dom = new DOMDocument();
-    $dom->loadHTML($html);
-    return $dom;
+function scrapeContent($dom, $page, $url, $query) {
+    $page->navigate($url)->waitForNavigation();
+
+    @$dom->loadHTML($page->getHtml(20000));
+    $finder = new DOMXPath($dom);
+    return $finder->query($query);
 }
 ?>
 
