@@ -12,9 +12,10 @@
             <div id="archive">
                 <div class="products">
                     <?php
-                        // $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `menumake` WHERE `menumake`.`menu`=$menu " . (isset($make) ? "AND `menumake`.`make`=$make" : "" ). " AND `menumake`.`id`=`item`.`menumake`;";
-                        // $result = $conn->query($sql);
-                        // while ($row = $result->fetch_assoc()) {
+                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `menu` WHERE `make`.`menu`=$menu " . (isset($make) ? "AND `menumake`.`make`=$make" : "" ). " AND `menumake`.`id`=`item`.`menumake`;";
+                        echo $sql;
+                        $result = $conn->query($sql);
+                        while ($row = $result->fetch_assoc()) {
                     ?>
                     <div class="product">
                         <div class="thumbnail">
@@ -23,25 +24,18 @@
                             </a>
                         </div>
                         <div class="name">
-                            <a href="?item=<?=$row['id']?>"><?=$row['name']?></a>
+                            <a href="/telefon/?item=<?=$row['id']?>"><?=$row['name']?></a>
                         </div>
                         <div class="min-price">
                             <span><?=$row['best_price']?>
                                 <span class="fraction">,00</span>
                             </span> AZN
                         </div>
-                        <!-- <div class="specifications">description</div> -->
                     </div>
 
                     <?php
-                        // }
+                        }
                     ?>
-                    <!-- <div class="pagination"><span aria-current="page" class="page-numbers current">1</span>
-                        <a class="page-numbers" href="#">2</a>
-                        <span class="page-numbers dots">…</span>
-                        <a class="page-numbers" href="#">25</a>
-                        <a class="next page-numbers" href="#">Sonrakı»</a>
-                    </div> -->
                 </div>
             </div>
 

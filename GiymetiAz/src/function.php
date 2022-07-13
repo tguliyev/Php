@@ -19,5 +19,7 @@ function scrapeContent($dom, $page, $url, $query) {
     $finder = new DOMXPath($dom);
     return $finder->query($query);
 }
+
+
 ?>
 

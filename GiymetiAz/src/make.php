@@ -38,9 +38,11 @@
                 for ($k=0; $k < count($item) - 1; $k++) {
                     $row = [];
 
-                    $row['link'] = $item[$k]->childNodes[0]->childNodes[0]->attributes->getNamedItem('href')->nodeValue;
+                    // $row['link'] = $item[$k]->childNodes[0]->childNodes[0]->attributes->getNamedItem('href')->nodeValue;
 
                     $row['name'] = $item[$k]->childNodes[1]->childNodes[0]->nodeValue;
+
+                    $row['make'] = strtok($row['name'], " ");
 
                     if ($item[$k]->childNodes[2]->attributes->getNamedItem('class')->nodeValue == 'min-price') {
                         $row['min-price'] = intval(str_replace(' ', '', $item[$k]->childNodes[2]->childNodes[0]->nodeValue));
@@ -126,7 +128,7 @@
     }
 
     function insertItems($item_data) {
-        
+
     }
 
 ?>
