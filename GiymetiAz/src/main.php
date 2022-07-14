@@ -12,7 +12,7 @@
             <div id="archive">
                 <div class="products">
                     <?php
-                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `make` WHERE `make`.`menu`=$menu " . (isset($make) ? "AND `make`.`id`=$make" : "" ). " AND `make`.`id`=`item`.`make`;";
+                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `make` WHERE `make`.`menu`=$menu " . (isset($make) ? " AND `make`.`id`=$make" : "" ). (isset($search) ? " AND `item`.`name` LIKE '%$search%' " : "" ) . " AND `make`.`id`=`item`.`make`;";
                         $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
                     ?>
@@ -45,8 +45,8 @@
                 <ul id="filters">
                     <li class="filter brands" data-group="brands">
                         <div class="filter-header-title">Marka</div>
-                        <div class="filter-search"><input type="text" placeholder="Marka axtar"></div>
-                        <div class="filter-content">
+                        <div class="filter-search"><input id="make_search" type="text" placeholder="Marka axtar"></div>
+                        <div class="filter-content" id="make_content">
                         <?php
                             $sql = "SELECT * FROM `make` WHERE `menu`=$menu;";
                             $result = $conn->query($sql);

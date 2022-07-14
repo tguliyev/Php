@@ -14,5 +14,6 @@
                     href="https://qiymeti.net/hizmet-kosullari/">Xidmət Şərtləri</a>ni qəbul etmiş sayılırlar.</div>
         </footer>
     </div>
+
 </body>
 </html>
