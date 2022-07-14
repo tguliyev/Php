@@ -12,8 +12,7 @@
             <div id="archive">
                 <div class="products">
                     <?php
-                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `menu` WHERE `make`.`menu`=$menu " . (isset($make) ? "AND `menumake`.`make`=$make" : "" ). " AND `menumake`.`id`=`item`.`menumake`;";
-                        echo $sql;
+                        $sql = "SELECT `item`.`id`, `item`.`name`, `item`.`image`, `item`.`best_price` FROM `item`, `make` WHERE `make`.`menu`=$menu " . (isset($make) ? "AND `make`.`id`=$make" : "" ). " AND `make`.`id`=`item`.`make`;";
                         $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
                     ?>
@@ -24,7 +23,7 @@
                             </a>
                         </div>
                         <div class="name">
-                            <a href="/telefon/?item=<?=$row['id']?>"><?=$row['name']?></a>
+                            <a href="?item=<?=$row['id']?>"><?=$row['name']?></a>
                         </div>
                         <div class="min-price">
                             <span><?=$row['best_price']?>

@@ -9,8 +9,10 @@
 
     <link href="https://qiymeti.net/wp-content/themes/qiymeti-theme/images/icon.png" rel="shortcut icon" type="image/png">
 
-    <link rel="stylesheet" id="qiymeti-style-css" href="./style.css" type="text/css" media="all">
-    <link rel="stylesheet" id="nouislider-style-css" href="./Kondisioner Qiymetleri - Qiyməti, Qiymətləri!_files/nouislider.min.css" type="text/css" media="all">
+    <?php
+        if (isset($item) && $item) echo '<link rel="stylesheet" id="qiymeti-style-css" href="styles/item.css" type="text/css" media="all">';
+        else echo '<link rel="stylesheet" id="qiymeti-style-css" href="styles/style.css" type="text/css" media="all">';
+    ?>
     <style id="global-styles-inline-css" type="text/css">
         body {
             --wp--preset--color--black: #000000;
@@ -570,18 +572,17 @@
                 <div class="blocks">
 
                     <div id="logo">
-                        <a href="https://qiymeti.net/" title="Qiyməti, Qiymətləri!">
+                        <a href="http://localhost/php/GiymetiAz/src" title="Qiyməti, Qiymətləri!">
                             <img alt="Qiymeti" width="188" height="40"
                                 src="assets/qiymeti-logo.png">
                         </a>
                     </div>
                     <div id="header-search" class="search">
-                        <form method="get" class="search-form" action="https://qiymeti.net/">
-                            <input class="search-input" type="text" name="s" value="" autocomplete="off"
+                        <form method="get" class="search-form" action="">
+                            <input class="search-input" type="text" name="search" value="" autocomplete="off"
                                 placeholder="Axtar: Samsung, iPhone 6s...">
                             <input class="search-submit icon" type="submit" value="">
                         </form>
-                        <div class="search-results"></div>
                     </div>
 
                     <div id="login">
@@ -601,9 +602,10 @@
                         <?php
                         $sql = "SELECT * FROM `menu`";
                         $result = $conn->query($sql);
+                        $index = 0;
                         while ($row = $result->fetch_assoc()) {
                         ?>
-                            <li id="menu-1">
+                            <li id="menu-<?=++$index?>">
                                 <a href="?menu=<?=$row['id']?>">
                                     <span class="icon"></span>
                                     <div class="text"><?=$row['name']?></div>

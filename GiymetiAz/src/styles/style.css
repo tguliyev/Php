@@ -78,7 +78,7 @@ p {
 }
 
 .icon {
-    background-image: url(assets/sprite.png);
+    background-image: url(../assets/sprite.png);
     background-size: 256px
 }
 
@@ -247,35 +247,35 @@ a:hover {
     background-position: 0 -56px
 }
 
-#menu-1334 .icon {
+#menu-3 .icon {
     background-position: -34px -56px
 }
 
-#menu-1390 .icon {
+#menu- .icon {
     background-position: -75px -56px
 }
 
-#menu-1535 .icon {
+#menu- .icon {
     background-position: -116px -56px
 }
 
-#menu-1558 .icon {
+#menu-5 .icon {
     background-position: -156px -56px
 }
 
-#menu-1593 .icon {
+#menu-  .icon {
     background-position: -196px -20px
 }
 
-#menu-1679 .icon {
+#menu-2 .icon {
     background-position: -196px -56px
 }
 
-#menu-1679 .text {
+#menu- .text {
     padding-left: 10px
 }
 
-#menu-1728 .icon {
+#menu-4 .icon {
     background-position: -116px -21px
 }
 
